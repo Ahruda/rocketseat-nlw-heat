@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { io } from '../app'
 import { CreateMessageService } from '../services/CreateMessageService'
 
 class CreateMessageControler {
