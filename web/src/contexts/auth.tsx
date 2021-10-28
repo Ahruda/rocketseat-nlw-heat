@@ -11,6 +11,7 @@ type User = {
 type AuthContextData = {
   user: User | null
   signInUrl: string
+  signOut: () => void
 }
 
 type AuthProvider = {
@@ -58,6 +59,10 @@ export function AuthProvider(props: AuthProvider) {
     }
   }, [])
 
+  function signOut() {
+    setUser(null)
+    localStorage.removeItem('@doWhile:token')
+  }
   useEffect(() => {
     const url = window.location.href
     const hasGithubCode = url.includes('?code=')
@@ -72,7 +77,7 @@ export function AuthProvider(props: AuthProvider) {
   })
 
   return (
-    <AuthContext.Provider value={{ signInUrl, user }}>
+    <AuthContext.Provider value={{ signInUrl, user, signOut }}>
       {props.children}
     </AuthContext.Provider>
   )
